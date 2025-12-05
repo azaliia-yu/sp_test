@@ -14,18 +14,23 @@ README.md
 cd zadanie1
 pip install -r requirements.txt
 
-2. Запустить сервера в разных терминалах:
-python thread_server.py    # многопоточный
-python async_server.py     # асинхронный
+2. Очисите результаты
+python clear_results.py
 
-3. Проверить вручную:
-curl "http://127.0.0.1:8001/parse?url=https://dental-first.ru/catalog"
-curl "http://127.0.0.1:8002/parse?url=https://dental-first.ru/catalog"
+3. Запустите серверы в разных терминалах
+ Терминал 1:
+python thread_server.py
 
-4. Запустить нагрузочный тест:
+ Терминал 2:
+python async_server.py
+
+4. Запустите бенчмарки (в Терминале 3):
 python run_benchmarks.py
-Результаты → results.csv  
-Названия товаров → thread_results.txt, async_results.txt
+
+5. Проверьте результаты
+cat thread_results.txt | head -20  # первые 20 названий из многопоточного сервера
+cat async_results.txt | head -20    # первые 20 названий из асинхронного сервера
+cat results.csv                     # сравнение производительности
 
 ---
 
