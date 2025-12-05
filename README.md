@@ -63,6 +63,10 @@ python socket_client.py .
 python run_socket_benchmarks.py
 Результаты → socket_results.csv
 ```
+6. Дополнительный анализ
+```
+python analysis_socket_results.py
+```
 ---
 
 
