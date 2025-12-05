@@ -1,52 +1,48 @@
 # sp_test
 
-Задание 1: Написать многопоточный и асинхронный серверы, которые обрабатывают внешние запросы  пор страницам сайта https://dental-first.ru/catalog. Для тестирования напишите сервер, который отправляет множественные запросы по различным страницам сайта. Сами  сервера должны сохранять названия товаров в файл. Сравните время выполнения, потребляемую память, и нагрузку на сервер. 
-Дополнительно: добавить подсчет суммарной стоимости всех пропарсенных товаров. Найдите оптимальный вариант решения этой задачи для асинхронного кода.
+## Структура проекта
 
+zadanie1/      # HTTP-серверы и парсер
+zadanie2/      # Сокеты и клиент
+README.md
 
-Задание 2: Напишите асинхронный и многопоточный сокеты, и клиент для них,которые считывают количество строк в файлах некой директории. Сравните показатели потребления, и время выполнения. Определите, какая минимальная память гарантировано обеспечит обработку 1000 одновременных запросов
+---
 
-## Установка
+## Задание 1 — HTTP-серверы
 
-```bash
-python -m venv venv
-# Linux/macOS
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
-pip install requests beautifulsoup4 lxml aiohttp
-```
+1. Установить зависимости:
+cd zadanie1
+pip install -r requirements.txt
 
-## Использование
+2. Запустить сервера в разных терминалах:
+python thread_server.py    # многопоточный
+python async_server.py     # асинхронный
 
-создайте urls.txt:
-```
-https://dental-first.ru/catalog?page=1
-https://dental-first.ru/catalog?page=2
-https://dental-first.ru/catalog?page=3
-...
-```
+3. Проверить вручную:
+curl "http://127.0.0.1:8001/parse?url=https://dental-first.ru/catalog"
+curl "http://127.0.0.1:8002/parse?url=https://dental-first.ru/catalog"
 
-Запуск парсеров
-Многопоточный:
-```
-python threaded_scraper.py urls.txt --workers 20 --out thread_names.txt
-```
-Асинхронный:
-```
-python async_scraper.py urls.txt --concurrency 100 --out async_names.txt
-```
+4. Запустить нагрузочный тест:
+python run_benchmarks.py
+Результаты → results.csv  
+Названия товаров → thread_results.txt, async_results.txt
 
-### Требования
-Для установки и запуска проекта, необходим [lxml 6.0.2](https://pypi.org/project/lxml/) 
+---
 
- Установите lxml с помощью команды:
-```sh
-pip install lxml
-```
+## Задание 2 — Сокеты
 
+1. Запустить серверы в разных терминалах:
+python thread_socket_server.py   # порт 9001
+python async_socket_server.py    # порт 9002
 
-### Зачем вы разработали этот проект?
-Контрольная работа по СП
+2. Проверка клиента:
+python socket_client.py .
+
+3. Запуск нагрузочного теста:
+python run_socket_benchmarks.py
+Результаты → socket_results.csv
+
+---
+
 
 
