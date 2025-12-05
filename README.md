@@ -6,12 +6,35 @@
 
 Задание 2: Напишите асинхронный и многопоточный сокеты, и клиент для них,которые считывают количество строк в файлах некой директории. Сравните показатели потребления, и время выполнения. Определите, какая минимальная память гарантировано обеспечит обработку 1000 одновременных запросов
 
+## Установка
+
+```bash
+python -m venv venv
+# Linux/macOS
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
+pip install requests beautifulsoup4 lxml aiohttp
+```
 
 ## Использование
 
-Запустите задания проекта:
-```python
-python название_файла.py
+создайте urls.txt:
+```
+https://dental-first.ru/catalog?page=1
+https://dental-first.ru/catalog?page=2
+https://dental-first.ru/catalog?page=3
+...
+```
+
+Запуск парсеров
+Многопоточный:
+```
+python threaded_scraper.py urls.txt --workers 20 --out thread_names.txt
+```
+Асинхронный:
+```
+python async_scraper.py urls.txt --concurrency 100 --out async_names.txt
 ```
 
 ### Требования
